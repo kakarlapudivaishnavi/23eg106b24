@@ -1,26 +1,54 @@
-doctype html
-html
-  head
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title= title
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/all.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    nav.navbar.fixed-top.navbar-expand-md.navbar-light
-      .container
-        a.navbar-brand(href='/') Loc8r
-        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarMain')
-          span.navbar-toggler-icon
-        #navbarMain.navbar-collapse.collapse
-          ul.navbar-nav.mr-auto
-            li.nav-item
-              a.nav-link(href='/about/') About
-    .container.content
-      block content
-    .container
-      footer.row.col-12
-        small &copy; Getting MEAN – Simon Holmes/Clive Harber 2018
-    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
-    script(src='/javascripts/bootstrap.min.js')
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1= location.name
+      small #{location.address}
+
+  .row
+    .col-12.col-md-8
+      h2 Description
+      p= location.description
+
+      h3 Rating:
+      if location.rating
+        each star in [1,2,3,4,5]
+          if star <= location.rating
+            i.fas.fa-star(style="color: gold;")
+          else
+            i.far.fa-star(style="color: gold;")
+      else
+        p No rating yet.
+
+      h3 Facilities
+      ul
+        each facility in location.facilities
+          li= facility
+
+      h3 Opening Hours
+      ul
+        each time in location.openingTimes
+          li
+            strong= time.days
+            | : #{time.opening} - #{time.closing} (#{time.closed ? 'Closed' : 'Open'})
+
+      h3 Customer Reviews
+      if location.reviews && location.reviews.length
+        each review in location.reviews
+          .review
+            h4= review.author
+            small= review.date
+            br
+            if review.rating
+              each star in [1,2,3,4,5]
+                if star <= review.rating
+                  i.fas.fa-star(style="color: gold;")
+                else
+                  i.far.fa-star(style="color: gold;")
+            p= review.text
+      else
+        p No reviews yet.
+
+    .col-12.col-md-4
+      p #{sidebar}
