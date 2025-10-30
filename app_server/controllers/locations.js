@@ -34,4 +34,3 @@ const homelist = (req, res) => {
 
 module.exports = { homelist };
 
-
