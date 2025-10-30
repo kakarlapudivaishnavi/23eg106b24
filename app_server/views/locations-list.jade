@@ -3,27 +3,32 @@ extends layout
 block content
   .row.banner
     .col-12
-      h1 Loc8r
-      small Find places to work with wifi near you!
+      h1 #{pageHeader.title}
+      small #{pageHeader.strapline}
 
   .row
     .col-12.col-md-8
       if locations.length
         each location in locations
-          .card
+          .card.mb-3
             .card-block
               h4
-                a(href="/location")= location.name
+                a(href="/location") #{location.name}
                 small &nbsp;
-                i.fas.fa-star
-                i.fas.fa-star
-                i.fas.fa-star
-                i.far.fa-star
-                i.far.fa-star
-                span.badge.badge-pill.badge-default.float-right #{location.distance}
-              p.address= location.address
+                // Rating stars
+                - for (var i = 1; i <= 5; i++)
+                  if i <= location.rating
+                    i.fas.fa-star
+                  else
+                    i.far.fa-star
+                span.badge.badge-pill.badge-danger.float-right #{location.distance}
+
+              p #{location.address}
               ul
                 each facility in location.facilities
                   li= facility
       else
-        p No locations found
+        p No locations found!
+
+    .col-12.col-md-4
+      p.lead #{sidebar}
