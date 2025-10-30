@@ -1,34 +1,33 @@
 extends layout
 
 block content
-  .row.banner
-    .col-12
-      h1 #{pageHeader.title}
-      small #{pageHeader.strapline}
+  .row.page-header
+    .col-lg-12
+      h1= pageHeader.title
+      h3= pageHeader.strapline
 
   .row
-    .col-12.col-md-8
-      if locations.length
-        each location in locations
-          .card.mb-3
-            .card-block
-              h4
-                a(href="/location") #{location.name}
-                small &nbsp;
-                // Rating stars
-                - for (var i = 1; i <= 5; i++)
-                  if i <= location.rating
-                    i.fas.fa-star
-                  else
-                    i.far.fa-star
-                span.badge.badge-pill.badge-danger.float-right #{location.distance}
+    .col-xs-12.col-md-9
+      each location in locations
+        .panel.panel-primary
+          .panel-heading
+            h3.panel-title
+              a(href=`/location/${location._id || location.name}`) #{location.name}
+              span.badge.pull-right #{location.distance}
+          .panel-body
+            p
+              if location.rating >= 1
+                span.glyphicon.glyphicon-star
+              if location.rating >= 2
+                span.glyphicon.glyphicon-star
+              if location.rating >= 3
+                span.glyphicon.glyphicon-star
+              if location.rating < 5
+                span.glyphicon.glyphicon-star-empty
+            p #{location.address}
+            ul.list-inline
+              each facility in location.facilities
+                li #{facility}
 
-              p #{location.address}
-              ul
-                each facility in location.facilities
-                  li= facility
-      else
-        p No locations found!
-
-    .col-12.col-md-4
-      p.lead #{sidebar}
+    .col-xs-12.col-md-3
+      p.lead= sidebar

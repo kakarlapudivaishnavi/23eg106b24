@@ -1,5 +1,6 @@
-const homelist = (req, res) => {
-  res.render('locations-list', {
+/* GET 'home' page */
+const homelist = function (req, res) {
+  res.render('location-list', {
     title: 'Loc8r - find a place to work with wifi',
     pageHeader: {
       title: 'Loc8r',
@@ -32,5 +33,35 @@ const homelist = (req, res) => {
   });
 };
 
-module.exports = { homelist };
+/* GET 'Location info' page */
+const locationInfo = function (req, res) {
+  res.render('location-info', {
+    title: 'Starcups',
+    pageHeader: { title: 'Starcups' },
+    location: {
+      name: 'Starcups',
+      address: '125 High Street, Reading, RG6 1PS',
+      rating: 3,
+      facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+      distance: '100m',
+      openingTimes: 'Monday - Friday : 7am - 7pm',
+      reviews: [
+        {
+          author: 'Charlie',
+          date: 'October 2024',
+          text: 'Great coffee and a nice quiet place to work.'
+        },
+        {
+          author: 'Sarah',
+          date: 'September 2024',
+          text: 'Nice wifi speed, but could use more power sockets.'
+        }
+      ]
+    }
+  });
+};
 
+module.exports = {
+  homelist,
+  locationInfo
+};
