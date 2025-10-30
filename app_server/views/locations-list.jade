@@ -3,30 +3,27 @@ extends layout
 block content
   .row.page-header
     .col-lg-12
-      h2 Loc8r
+      h1 Loc8r
       h3 Find places to work with wifi near you!
+
   .row
-    .col-md-8
+    .col-xs-12.col-md-9
       each location in locations
         .panel.panel-default
-          .panel-body
-            h4.panel-title
+          .panel-heading
+            h4
               a(href=`/location/${location._id}`)= location.name
-              span.pull-right.label.label-danger= location.distance
+              span.badge.pull-right #{location.distance}
+          .panel-body
+            p #{location.address}
             p
-              | #{location.address}
-            p
-              | 
-              i(class='fas fa-star', style=`color: ${location.rating >= 1 ? 'gold' : 'gray'};`)
-              i(class='fas fa-star', style=`color: ${location.rating >= 2 ? 'gold' : 'gray'};`)
-              i(class='fas fa-star', style=`color: ${location.rating >= 3 ? 'gold' : 'gray'};`)
-              i(class='fas fa-star', style=`color: ${location.rating >= 4 ? 'gold' : 'gray'};`)
-              i(class='fas fa-star', style=`color: ${location.rating >= 5 ? 'gold' : 'gray'};`)
-            p
-              strong Hot drinks
-              |   
-              strong Food
-              |   
-              strong Premium wifi
-    .col-md-4
-      p Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.
+              each star in [1,2,3,4,5]
+                if star <= location.rating
+                  i.fas.fa-star(style='color: gold;')
+                else
+                  i.far.fa-star(style='color: gold;')
+            ul
+              each facility in location.facilities
+                li #{facility}
+    .col-xs-12.col-md-3
+      p Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you’re looking for.
