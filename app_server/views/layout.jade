@@ -1,54 +1,36 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
 
-block content
-  .row.banner
-    .col-12
-      h1= location.name
-      small #{location.address}
+    // Bootstrap CSS
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css')
 
-  .row
-    .col-12.col-md-8
-      h2 Description
-      p= location.description
+    // Font Awesome for stars
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css')
 
-      h3 Rating:
-      if location.rating
-        each star in [1,2,3,4,5]
-          if star <= location.rating
-            i.fas.fa-star(style="color: gold;")
-          else
-            i.far.fa-star(style="color: gold;")
-      else
-        p No rating yet.
+    // Custom CSS (optional)
+    style.
+      body {
+        background-color: #078c94;
+        color: #fff;
+      }
+      .card {
+        background-color: #379ba6;
+        color: #000;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        padding: 15px;
+      }
+      .rating i {
+        color: gold;
+        margin-right: 2px;
+      }
 
-      h3 Facilities
-      ul
-        each facility in location.facilities
-          li= facility
+  body
+    block content
 
-      h3 Opening Hours
-      ul
-        each time in location.openingTimes
-          li
-            strong= time.days
-            | : #{time.opening} - #{time.closing} (#{time.closed ? 'Closed' : 'Open'})
-
-      h3 Customer Reviews
-      if location.reviews && location.reviews.length
-        each review in location.reviews
-          .review
-            h4= review.author
-            small= review.date
-            br
-            if review.rating
-              each star in [1,2,3,4,5]
-                if star <= review.rating
-                  i.fas.fa-star(style="color: gold;")
-                else
-                  i.far.fa-star(style="color: gold;")
-            p= review.text
-      else
-        p No reviews yet.
-
-    .col-12.col-md-4
-      p #{sidebar}
+    // Bootstrap JS
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')
