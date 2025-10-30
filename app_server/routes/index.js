@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var ctrlLocations = require('../controllers/locations');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'vaishnavi' });
-});
+/* GET home page */
+router.get('/', ctrlLocations.homelist);
 
 module.exports = router;
