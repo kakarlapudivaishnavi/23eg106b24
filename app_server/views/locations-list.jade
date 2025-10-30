@@ -1,27 +1,24 @@
+extends layout
+
 block content
-  .row.banner
-    .col-12
-      h1 Loc8r
-      small Find places to work with wifi near you!
+  h1 Loc8r
+  p Find places to work with wifi near you!
 
-  .row
-    .col-12.col-md-8
-      if locations.length
-        each location in locations
-          .card
-            h4
-              a(href='/location')= location.name
-              .rating
-                - for (var i = 1; i <= 5; i++)
-                  if i <= location.rating
-                    i.fas.fa-star
-                  else
-                    i.far.fa-star
-              small &nbsp; #{location.distance}
+  each location in locations
+    .location-card(style="border:1px solid #ddd; border-radius:10px; padding:15px; margin-bottom:15px; background:#f9f9f9; box-shadow:0 2px 5px rgba(0,0,0,0.1);")
+      h2
+        a(href="#", style="color:#007BFF; text-decoration:none;")= location.name
+      p(style="font-weight:bold; color:#555") #{location.distance}
+      p(style="color:#444")= location.address
+      
+      ul
+        each facility in location.facilities
+          li(style="color:#333")= facility
 
-            p #{location.address}
-            ul
-              each facility in location.facilities
-                li= facility
-      else
-        p No locations found nearby.
+      if location.rating
+        p Rating:
+          - for (var i = 1; i <= 5; i++)
+            if i <= location.rating
+              i(class="fas fa-star", style="color:gold;")
+            else
+              i(class="far fa-star", style="color:gold;")
