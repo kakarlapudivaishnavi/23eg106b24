@@ -1,24 +1,32 @@
 extends layout
 
 block content
-  h1 Loc8r
-  p Find places to work with wifi near you!
-
-  each location in locations
-    .location-card(style="border:1px solid #ddd; border-radius:10px; padding:15px; margin-bottom:15px; background:#f9f9f9; box-shadow:0 2px 5px rgba(0,0,0,0.1);")
-      h2
-        a(href="#", style="color:#007BFF; text-decoration:none;")= location.name
-      p(style="font-weight:bold; color:#555") #{location.distance}
-      p(style="color:#444")= location.address
-      
-      ul
-        each facility in location.facilities
-          li(style="color:#333")= facility
-
-      if location.rating
-        p Rating:
-          - for (var i = 1; i <= 5; i++)
-            if i <= location.rating
-              i(class="fas fa-star", style="color:gold;")
-            else
-              i(class="far fa-star", style="color:gold;")
+  .row.page-header
+    .col-lg-12
+      h2 Loc8r
+      h3 Find places to work with wifi near you!
+  .row
+    .col-md-8
+      each location in locations
+        .panel.panel-default
+          .panel-body
+            h4.panel-title
+              a(href=`/location/${location._id}`)= location.name
+              span.pull-right.label.label-danger= location.distance
+            p
+              | #{location.address}
+            p
+              | 
+              i(class='fas fa-star', style=`color: ${location.rating >= 1 ? 'gold' : 'gray'};`)
+              i(class='fas fa-star', style=`color: ${location.rating >= 2 ? 'gold' : 'gray'};`)
+              i(class='fas fa-star', style=`color: ${location.rating >= 3 ? 'gold' : 'gray'};`)
+              i(class='fas fa-star', style=`color: ${location.rating >= 4 ? 'gold' : 'gray'};`)
+              i(class='fas fa-star', style=`color: ${location.rating >= 5 ? 'gold' : 'gray'};`)
+            p
+              strong Hot drinks
+              |   
+              strong Food
+              |   
+              strong Premium wifi
+    .col-md-4
+      p Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.
