@@ -1,0 +1,7 @@
+if typeof rating !== 'undefined'
+  span
+    - for (var i = 1; i <= 5; i++)
+      if i <= rating
+        span.fa.fa-star
+      else
+        span.fa.fa-star-o
